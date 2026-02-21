@@ -183,6 +183,68 @@
         box-shadow: 0 10px 30px rgba(0,0,0,.6);
       }
     }
+
+    /* Gallery */
+    .gallery-grid {
+      columns: 3 220px;
+      column-gap: 12px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #090c14;
+      cursor: zoom-in;
+    }
+    .gallery-item img { width: 100%; height: auto; display: block; }
+    .gallery-caption {
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(1000px, 95vw);
+      max-height: 80vh;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(8,11,20,.85);
+      color: #fff;
+      border-radius: 999px;
+      width: 38px;
+      height: 38px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Contact Form */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; max-width: 500px; }
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 12px 16px; border-radius: var(--radius-md);
+      background: rgba(8,11,20,.6); border: 1px solid rgba(160,167,184,.2);
+      color: var(--text); font-family: inherit; font-size: 14px; transition: border-color 0.2s ease;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent); }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+    .contact-form .btn-primary { align-self: flex-start; margin-top: 4px; border: none; }
   </style>
 </head>
 <body>
@@ -276,6 +338,21 @@
       </div>
     </section>
 
+    <section class="section" id="gallery">
+      <div class="section-header">
+        <h2 class="section-title">From the Kitchen & Bar</h2>
+        <p class="section-subtitle">Tap any photo to view full-size.</p>
+      </div>
+      <div class="gallery-grid">
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80" alt="Signature tavern burger" loading="lazy" /><figcaption class="gallery-caption">Peake Tavern Burger</figcaption></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=900&q=80" alt="Loaded fries and wings" loading="lazy" /><figcaption class="gallery-caption">Loaded Fries + Wings</figcaption></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80" alt="Craft cocktails on bar" loading="lazy" /><figcaption class="gallery-caption">Craft Cocktail Flight</figcaption></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80" alt="Oven fired flatbread" loading="lazy" /><figcaption class="gallery-caption">Oven-Fired Flatbread</figcaption></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Dining room atmosphere" loading="lazy" /><figcaption class="gallery-caption">Neighborhood Vibe</figcaption></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80" alt="Beer glasses on bar" loading="lazy" /><figcaption class="gallery-caption">Drafts & Good Times</figcaption></figure>
+      </div>
+    </section>
+
     <section class="section">
       <div class="section-header">
         <h2 class="section-title">Built for the Neighborhood</h2>
@@ -332,6 +409,22 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="location-card">
+        <div class="section-header">
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-subtitle">Have a question or want to book a large party? Drop us a line.</p>
+        </div>
+        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="_replyto" placeholder="Your Email" required />
+          <textarea name="message" placeholder="How can we help?" required></textarea>
+          <input type="hidden" name="_subject" value="New submission from Peake Tavern Site" />
+          <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+      </div>
       <div class="footer-cta">Ready for a <strong>Peake</strong> night? Show up hungry, stay for the music.</div>
     </section>
   </div>
@@ -339,6 +432,40 @@
   <div class="mobile-quick-cta">
     <a class="btn-primary" href="tel:+17575551234">Call to Book a Table</a>
   </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close image">×</button>
+    <img id="lightboxImage" alt="Expanded gallery image" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.gallery-item img').forEach((img) => {
+      img.addEventListener('click', () => {
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+    };
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  </script>
 
   <script type="application/ld+json">
   {
