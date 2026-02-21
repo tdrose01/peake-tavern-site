@@ -1,7 +1,5 @@
 {
-  "name": "peake-tavern-site1",
+  "name": "peake-tavern-site",
   "compatibility_date": "2026-02-21",
-  "assets": {
-    "directory": "./public"
-  }
+  "pages_build_output_dir": "./public"
 }
