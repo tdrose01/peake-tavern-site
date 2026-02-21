@@ -5,11 +5,16 @@
   <title>Peake Tavern | Great Bridge’s Local Tavern</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Peake Tavern in Great Bridge, Chesapeake VA — live music, tavern food, craft drinks, and weekly events." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#050609" />
   <meta property="og:title" content="Peake Tavern | Great Bridge’s Local Tavern" />
   <meta property="og:description" content="Live music, tavern favorites, and neighborhood vibes in Chesapeake, VA." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./peake-logo.jpg" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Peake Tavern | Great Bridge’s Local Tavern" />
+  <meta name="twitter:description" content="Live music, tavern favorites, and neighborhood vibes in Chesapeake, VA." />
   <style>
     :root {
       --bg: #050609;
@@ -185,7 +190,7 @@
     <header class="nav">
       <div class="nav-left">
         <div class="logo-mark">
-          <img src="./peake-logo.jpg" alt="Peake Tavern logo" />
+          <img src="./peake-logo.jpg" alt="Peake Tavern logo" width="80" height="80" decoding="async" />
         </div>
         <div class="brand-text">
           <div class="brand-name">PEAKE TAVERN</div>
@@ -350,7 +355,27 @@
     },
     "telephone": "+1-757-555-1234",
     "servesCuisine": ["American", "Bar Food"],
-    "url": "https://example.com"
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "11:00",
+        "closes": "23:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Friday", "Saturday"],
+        "opens": "11:00",
+        "closes": "01:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "11:00",
+        "closes": "22:00"
+      }
+    ]
   }
   </script>
 </body>
