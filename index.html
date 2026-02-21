@@ -156,11 +156,27 @@
       .section-header { flex-direction: column; align-items: flex-start; }
       .section-subtitle { text-align: left; }
     }
+    .mobile-quick-cta { display: none; }
+
     @media (max-width: 720px) {
       .nav-links { display: none; }
       .week-grid, .menu-grid { grid-template-columns: 1fr; }
       .hero-text { padding: 18px 16px 20px; }
       .hero-title { font-size: 24px; }
+      .mobile-quick-cta {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+      }
+      .mobile-quick-cta .btn-primary {
+        width: 100%;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,.6);
+      }
     }
   </style>
 </head>
@@ -194,7 +210,7 @@
           Welcome to <span>Peake Tavern</span>.
         </p>
         <div class="hero-buttons">
-          <a class="btn-primary" href="#week">Tonight at Peake</a>
+          <a class="btn-primary" href="#week">See Tonight’s Lineup</a>
           <a class="btn-ghost" href="tel:+17575551234"><span>📞</span>Call for a table</a>
           <a class="btn-ghost" target="_blank" rel="noopener" href="https://maps.google.com/?q=1245+Cedar+Rd+Suite+F+Chesapeake+VA+23322"><span>📍</span>Get directions</a>
         </div>
@@ -313,6 +329,10 @@
       </div>
       <div class="footer-cta">Ready for a <strong>Peake</strong> night? Show up hungry, stay for the music.</div>
     </section>
+  </div>
+
+  <div class="mobile-quick-cta">
+    <a class="btn-primary" href="tel:+17575551234">Call to Book a Table</a>
   </div>
 
   <script type="application/ld+json">
