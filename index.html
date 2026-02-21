@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Peake Tavern | Great Bridge’s Local Tavern</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Peake Tavern in Great Bridge, Chesapeake VA — live music, tavern food, craft drinks, and weekly events." />
+  <meta property="og:title" content="Peake Tavern | Great Bridge’s Local Tavern" />
+  <meta property="og:description" content="Live music, tavern favorites, and neighborhood vibes in Chesapeake, VA." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./peake-logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root {
+      --bg: #050609;
+      --bg-alt: #0b0f18;
+      --card: #111624;
+      --accent: #f2a848;
+      --accent-soft: rgba(242, 168, 72, 0.2);
+      --text: #f5f5f5;
+      --muted: #a0a7b8;
+      --danger: #ff4d67;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #151b2a 0, #050609 55%);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 56px; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .nav-left { display: flex; align-items: center; gap: 10px; }
+    .logo-mark {
+      width: 40px; height: 40px; border-radius: 50%; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.25); box-shadow: 0 0 20px rgba(242,168,72,.25);
+      background: #0c0f17;
+    }
+    .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-text { display: flex; flex-direction: column; }
+    .brand-name { letter-spacing: 0.14em; font-size: 13px; text-transform: uppercase; }
+    .brand-tagline { font-size: 11px; color: var(--muted); }
+    .nav-links { display: flex; gap: 18px; font-size: 13px; color: var(--muted); }
+    .nav-links a { position: relative; padding-bottom: 3px; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--danger)); transition: width .25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .hero {
+      display: grid; grid-template-columns: minmax(0,1.45fr) minmax(0,1.2fr);
+      gap: 28px; margin-bottom: 40px; align-items: center;
+    }
+    .hero-text {
+      padding: 24px 22px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #20263a 0, #090c12 52%);
+      box-shadow: 0 38px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.03);
+      position: relative; overflow: hidden;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px;
+      border-radius: var(--radius-pill); background: rgba(10,14,25,.9);
+      border: 1px solid rgba(242,168,72,.4); color: var(--accent); font-size: 11px; margin-bottom: 14px;
+    }
+    .hero-pill-dot { width: 7px; height: 7px; border-radius: 999px; background: #46e58b; box-shadow: 0 0 12px rgba(70,229,139,.85); }
+    .hero-title { font-size: 30px; line-height: 1.18; margin-bottom: 8px; }
+    .hero-subtitle { font-size: 14px; color: var(--muted); max-width: 420px; margin-bottom: 18px; }
+    .hero-subtitle span { color: var(--accent); }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+
+    .btn-primary, .btn-ghost {
+      border-radius: var(--radius-pill); padding: 10px 16px; font-size: 13px;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #ff4d67);
+      color: #050609; font-weight: 700;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.6), 0 15px 35px rgba(0,0,0,.7);
+    }
+    .btn-ghost { background: rgba(8,11,20,.85); border: 1px solid rgba(160,167,184,.4); color: var(--text); }
+    .btn-ghost span { font-size: 16px; }
+
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11px; color: var(--muted); }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .hero-meta-badge { width: 7px; height: 7px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 12px rgba(242,168,72,.7); }
+    .hero-glow {
+      position: absolute; right: -70px; top: -70px; width: 180px; height: 180px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(242,168,72,.4), transparent); filter: blur(8px); opacity: .8;
+    }
+
+    .hero-right { display: flex; flex-direction: column; gap: 18px; }
+    .card {
+      border-radius: var(--radius-lg); background: rgba(6,10,18,.95);
+      border: 1px solid rgba(255,255,255,.04); padding: 18px 18px 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.9);
+    }
+    .card-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+    .card-title { font-size: 13px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+    .card-pill { font-size: 11px; color: var(--accent); padding: 4px 10px; border-radius: var(--radius-pill); background: rgba(242,168,72,.08); }
+    .event-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .event-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; }
+    .event-name { font-weight: 500; }
+    .event-time, .event-note { color: var(--muted); font-size: 12px; }
+    .card-footer-link { font-size: 11px; color: var(--accent); }
+
+    .section { margin-bottom: 40px; }
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; gap: 16px; }
+    .section-title { font-size: 18px; }
+    .section-subtitle { font-size: 12px; color: var(--muted); max-width: 380px; text-align: right; }
+
+    .week-grid, .menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .week-card, .menu-card {
+      border-radius: var(--radius-md); padding: 12px; background: linear-gradient(160deg, #101521, #05070c);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .week-day, .menu-label { font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .week-name, .menu-name { font-size: 14px; margin-bottom: 4px; }
+    .week-time, .week-tag, .menu-desc { font-size: 12px; color: var(--muted); }
+
+    .community-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+    .quote-card {
+      border-radius: var(--radius-md); padding: 14px; background: radial-gradient(circle at top, #171d2c, #060812);
+      border: 1px solid rgba(255,255,255,.06); font-size: 13px;
+    }
+    .quote-mark { font-size: 20px; color: var(--accent); margin-bottom: 4px; }
+    .quote-meta { margin-top: 10px; font-size: 11px; color: var(--muted); }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; font-size: 11px; }
+    .badge {
+      padding: 4px 9px; border-radius: var(--radius-pill); background: rgba(10,14,25,.8);
+      border: 1px solid rgba(242,168,72,.28); color: var(--accent);
+    }
+
+    .location-card {
+      border-radius: var(--radius-lg); padding: 16px 16px 14px; background: linear-gradient(135deg, #111728, #050609);
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .location-row { display: grid; grid-template-columns: 1.3fr 1.1fr; gap: 16px; font-size: 13px; }
+    .location-meta { font-size: 12px; color: var(--muted); margin-top: 4px; margin-bottom: 10px; }
+    .location-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .location-badge { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .footer-cta { text-align: center; margin-top: 32px; font-size: 13px; color: var(--muted); }
+    .footer-cta strong { color: var(--accent); }
+
+    @media (max-width: 860px) {
+      .hero, .community-grid, .location-row { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+      .section-subtitle { text-align: left; }
+    }
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .week-grid, .menu-grid { grid-template-columns: 1fr; }
+      .hero-text { padding: 18px 16px 20px; }
+      .hero-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <div class="nav-left">
+        <div class="logo-mark">
+          <img src="./peake-logo.jpg" alt="Peake Tavern logo" />
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">PEAKE TAVERN</div>
+          <div class="brand-tagline">Great Bridge · Chesapeake, VA</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#tonight">Tonight</a>
+        <a href="#week">This Week</a>
+        <a href="#menu">Menu</a>
+        <a href="#visit">Visit</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-glow"></div>
+        <div class="hero-pill"><span class="hero-pill-dot"></span>LIVE TONIGHT · NO COVER</div>
+        <h1 class="hero-title">Where Great Bridge<br />comes to play.</h1>
+        <p class="hero-subtitle">
+          Tavern food that hits, drinks done right, and a stage that stays busy.
+          Welcome to <span>Peake Tavern</span>.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn-primary" href="#week">Tonight at Peake</a>
+          <a class="btn-ghost" href="tel:+17575551234"><span>📞</span>Call for a table</a>
+          <a class="btn-ghost" target="_blank" rel="noopener" href="https://maps.google.com/?q=1245+Cedar+Rd+Suite+F+Chesapeake+VA+23322"><span>📍</span>Get directions</a>
+        </div>
+        <div class="hero-meta">
+          <span><span class="hero-meta-badge"></span>Free live music · Local bands</span>
+          <span>Full bar · Kitchen till late</span>
+        </div>
+      </div>
+
+      <div class="hero-right" id="tonight">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Tonight at Peake</div>
+            <div class="card-pill">Free Live Music</div>
+          </div>
+          <div class="event-list">
+            <div class="event-row">
+              <div>
+                <div class="event-name">Allegra DuChaine (Acoustic)</div>
+                <div class="event-note">On stage in the main room</div>
+              </div>
+              <div class="event-time">7:00 – 10:00 PM</div>
+            </div>
+            <div class="event-row">
+              <div>
+                <div class="event-name">Karaoke After Dark</div>
+                <div class="event-note">Late-night bites & cocktails</div>
+              </div>
+              <div class="event-time">10:00 PM – Close</div>
+            </div>
+          </div>
+          <a class="card-footer-link" href="#">View full event lineup ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="week">
+      <div class="section-header">
+        <h2 class="section-title">This Week at Peake</h2>
+        <p class="section-subtitle">Live music, karaoke, and a mixed crowd of locals, regulars, and first‑timers.</p>
+      </div>
+      <div class="week-grid">
+        <div class="week-card"><div class="week-day">Thursday</div><div class="week-name">Acoustic Sessions</div><div class="week-time">7:00 – 10:00 PM</div><div class="week-tag">Singer‑songwriters · Chill night</div></div>
+        <div class="week-card"><div class="week-day">Friday</div><div class="week-name">Full Band Friday</div><div class="week-time">8:00 – 11:00 PM</div><div class="week-tag">High‑energy · No cover</div></div>
+        <div class="week-card"><div class="week-day">Saturday</div><div class="week-name">Karaoke & Late Night</div><div class="week-time">9:00 PM – Close</div><div class="week-tag">Crowd‑favorites · Mixed ages</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="section-header">
+        <h2 class="section-title">Food & Drinks That Hit</h2>
+        <p class="section-subtitle">Elevated tavern food, cocktails, and a beer list built for game nights and weekend crowds.</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-label">From the grill</div><div class="menu-name">Peake Tavern Burger</div><p class="menu-desc">Smashed patty, house toppings, toasted bun.</p></div>
+        <div class="menu-card"><div class="menu-label">Shareables</div><div class="menu-name">Wings & Loaded Fries</div><p class="menu-desc">Classic buffalo, garlic parm, and Peake heat.</p></div>
+        <div class="menu-card"><div class="menu-label">Flatbreads</div><div class="menu-name">Oven‑Fired Flatbreads</div><p class="menu-desc">Classic favorites + rotating specials.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Built for the Neighborhood</h2>
+        <p class="section-subtitle">A mixed crowd of younger and older locals who want somewhere easy to land.</p>
+      </div>
+      <div class="community-grid">
+        <div class="quote-card">
+          <div class="quote-mark">“</div>
+          <p>Friendly staff, great food, and a vibe that feels like Great Bridge in one room.</p>
+          <div class="quote-meta">— What people say about nights at Peake</div>
+          <div class="badge-row">
+            <div class="badge">Live Music · No Cover</div>
+            <div class="badge">Mixed‑age Crowd</div>
+            <div class="badge">Neighborhood Tavern</div>
+          </div>
+        </div>
+        <div class="quote-card">
+          <p>Peake Tavern leans music‑driven and neighborhood‑centric more than a pure TV-wall sports bar.</p>
+          <div class="quote-meta">A different feel than big-box sports spots.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visit">
+      <div class="location-card">
+        <div class="section-header">
+          <h2 class="section-title">Visit Peake Tavern</h2>
+          <p class="section-subtitle">Las Gaviotas / Cedar Rd area of Chesapeake, VA.</p>
+        </div>
+        <div class="location-row">
+          <div>
+            <div><strong>Address</strong></div>
+            <div>1245 Cedar Rd, Suite F<br/>Chesapeake, VA 23322</div>
+            <div class="location-meta">Nestled in Great Bridge · Easy parking.</div>
+            <div><strong>Hours</strong></div>
+            <div class="location-meta">
+              Mon–Thu: 11:00 AM – 11:00 PM<br/>
+              Fri–Sat: 11:00 AM – 1:00 AM<br/>
+              Sun: 11:00 AM – 10:00 PM
+            </div>
+            <div class="location-btns">
+              <a class="btn-primary" target="_blank" rel="noopener" href="https://maps.google.com/?q=1245+Cedar+Rd+Suite+F+Chesapeake+VA+23322">Get Directions</a>
+              <a class="btn-ghost" href="tel:+17575551234"><span>📞</span>Call Peake Tavern</a>
+            </div>
+          </div>
+          <div>
+            <div><strong>Stay in the loop</strong></div>
+            <div class="location-meta">Follow Peake for events, specials, and who’s on stage this week.</div>
+            <div class="location-btns">
+              <a class="btn-ghost" target="_blank" rel="noopener" href="https://www.facebook.com/"><span>📘</span>Facebook</a>
+              <a class="btn-ghost" target="_blank" rel="noopener" href="https://www.instagram.com/"><span>📸</span>Instagram</a>
+            </div>
+            <div class="location-badge">Live music · Happy crowds · Neighborhood energy</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-cta">Ready for a <strong>Peake</strong> night? Show up hungry, stay for the music.</div>
+    </section>
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BarOrPub",
+    "name": "Peake Tavern",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1245 Cedar Rd, Suite F",
+      "addressLocality": "Chesapeake",
+      "addressRegion": "VA",
+      "postalCode": "23322",
+      "addressCountry": "US"
+    },
+    "telephone": "+1-757-555-1234",
+    "servesCuisine": ["American", "Bar Food"],
+    "url": "https://example.com"
+  }
+  </script>
+</body>
+</html>
