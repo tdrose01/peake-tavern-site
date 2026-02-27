@@ -506,11 +506,15 @@
   }
   </script>
 
+  
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       const today = new Date();
-      const dayName = dayNames[today.getDay()];
+      // Force to Eastern Time just in case the server/browser is weird
+      const options = { timeZone: "America/New_York", weekday: 'long' };
+      const dayName = new Intl.DateTimeFormat('en-US', options).format(today);
 
       const weekCards = document.querySelectorAll('.week-card');
       let todaysEvent = null;
@@ -526,11 +530,12 @@
           };
         }
         if (!nextEvent && (today.getDay() < 4 || today.getDay() === 0)) {
+          // If it's Mon-Wed or Sun, grab Thursday (first card)
           nextEvent = {
-            day: cardDay,
-            name: card.querySelector('.week-name').innerText,
-            time: card.querySelector('.week-time').innerText,
-            tag: card.querySelector('.week-tag').innerText
+            day: weekCards[0].querySelector('.week-day').innerText.trim(),
+            name: weekCards[0].querySelector('.week-name').innerText,
+            time: weekCards[0].querySelector('.week-time').innerText,
+            tag: weekCards[0].querySelector('.week-tag').innerText
           };
         }
       });

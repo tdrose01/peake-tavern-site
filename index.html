@@ -499,11 +499,15 @@
   }
   </script>
 
+  
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       const today = new Date();
-      const dayName = dayNames[today.getDay()];
+      // Force to Eastern Time just in case the server/browser is weird
+      const options = { timeZone: "America/New_York", weekday: 'long' };
+      const dayName = new Intl.DateTimeFormat('en-US', options).format(today);
 
       const weekCards = document.querySelectorAll('.week-card');
       let todaysEvent = null;
@@ -519,41 +523,58 @@
           };
         }
         if (!nextEvent && (today.getDay() < 4 || today.getDay() === 0)) {
+          // If it's Mon-Wed or Sun, grab Thursday (first card)
           nextEvent = {
-            day: cardDay,
-            name: card.querySelector('.week-name').innerText,
-            time: card.querySelector('.week-time').innerText,
-            tag: card.querySelector('.week-tag').innerText
+            day: weekCards[0].querySelector('.week-day').innerText.trim(),
+            name: weekCards[0].querySelector('.week-name').innerText,
+            time: weekCards[0].querySelector('.week-time').innerText,
+            tag: weekCards[0].querySelector('.week-tag').innerText
           };
         }
       });
 
       const tonightTitle = document.querySelector('#tonight .card-title');
       const tonightPill = document.querySelector('#tonight .card-pill');
-      const eventName = document.querySelector('#tonight .event-name');
-      const eventNote = document.querySelector('#tonight .event-note');
-      const eventTime = document.querySelector('#tonight .event-time');
+      const eventList = document.querySelector('#tonight .event-list');
 
       if (todaysEvent) {
         tonightTitle.innerText = "Tonight at Peake";
         tonightPill.innerText = "Live";
         tonightPill.style.display = "inline-block";
-        eventName.innerText = todaysEvent.name;
-        eventNote.innerText = todaysEvent.tag;
-        eventTime.innerText = todaysEvent.time;
+        eventList.innerHTML = `
+          <div class="event-row">
+            <div>
+              <div class="event-name">${todaysEvent.name}</div>
+              <div class="event-note">${todaysEvent.tag}</div>
+            </div>
+            <div class="event-time">${todaysEvent.time}</div>
+          </div>
+        `;
       } else if (nextEvent) {
         tonightTitle.innerText = "Up Next at Peake";
         tonightPill.innerText = nextEvent.day;
         tonightPill.style.display = "inline-block";
-        eventName.innerText = nextEvent.name;
-        eventNote.innerText = nextEvent.tag;
-        eventTime.innerText = nextEvent.time;
+        eventList.innerHTML = `
+          <div class="event-row">
+            <div>
+              <div class="event-name">${nextEvent.name}</div>
+              <div class="event-note">${nextEvent.tag}</div>
+            </div>
+            <div class="event-time">${nextEvent.time}</div>
+          </div>
+        `;
       } else {
         tonightTitle.innerText = "Tonight at Peake";
         tonightPill.style.display = "none";
-        eventName.innerText = "Cold Drinks & Good Times";
-        eventNote.innerText = "Kitchen open late";
-        eventTime.innerText = "Until Close";
+        eventList.innerHTML = `
+          <div class="event-row">
+            <div>
+              <div class="event-name">Cold Drinks & Good Times</div>
+              <div class="event-note">Kitchen open late</div>
+            </div>
+            <div class="event-time">Until Close</div>
+          </div>
+        `;
       }
     });
   </script>
